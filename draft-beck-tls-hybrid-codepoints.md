@@ -10,14 +10,14 @@ date:
 consensus: true
 v: 3
 area: "Security"
-workgroup: "TLS"
+workgroup: "Transport Layer Security"
 keyword:
  - composite
  - ML-DSA
  - post-quantum
  - code point allocation
 venue:
-  group: "TLS"
+  group: "Transport Layer Security"
   type: "Working Group"
   mail: "tls@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/tls/"
