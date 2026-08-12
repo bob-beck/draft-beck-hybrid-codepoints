@@ -1388,11 +1388,12 @@ string of Section 4.5.2 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</
         <h3 id="name-restrictions">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-restrictions" class="section-name selfRef">Restrictions</a>
         </h3>
-<p id="section-3.3-1">TLS 1.3 does not use RSASSA-PKCS1-v1_5 <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> in CertificateVerify.
-Accordingly, mldsa44_rsa2048_pkcs15_sha256, mldsa65_rsa3072_pkcs15_sha512, and
+<p id="section-3.3-1">RSASSA-PKCS1-v1_5 <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> is not defined for use in signed TLS handshake
+messages (Section 4.3.3 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>). Accordingly,
+mldsa44_rsa2048_pkcs15_sha256, mldsa65_rsa3072_pkcs15_sha512, and
 mldsa65_rsa4096_pkcs15_sha512 <span class="bcp14">MUST NOT</span> appear in the "signature_algorithms"
 extension; they are defined only for the "signature_algorithms_cert" extension
-and for signatures in certificates (Section 4.3.3 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>). An
+and for signatures in certificates (Section 4.5.1.2 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>). An
 endpoint that receives a CertificateVerify message using one of these three
 schemes <span class="bcp14">MUST</span> abort with an illegal_parameter alert.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">The schemes defined in this document <span class="bcp14">MUST NOT</span> be used with TLS 1.2 <span>[<a href="#RFC5246" class="cite xref">RFC5246</a>]</span>
