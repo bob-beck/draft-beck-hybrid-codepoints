@@ -31,7 +31,7 @@ author:
     email: "beck@obtuse.com"
 
 normative:
-  RFC8446:
+  RFC9846:
   I-D.ietf-lamps-pq-composite-sigs:
   RFC9847:
 
@@ -69,7 +69,7 @@ signature algorithms, each pairing ML-DSA {{FIPS204}} with a traditional
 signature algorithm, and allocates an object identifier for each so that they
 can be used in X.509 certificates.
 
-TLS 1.3 {{RFC8446}} negotiates signature algorithms using values from the TLS
+TLS 1.3 {{RFC9846}} negotiates signature algorithms using values from the TLS
 SignatureScheme registry. No such values exist for Composite ML-DSA, so these
 algorithms cannot be negotiated in TLS even where certificates using them are
 available.
@@ -92,7 +92,7 @@ that the code point alone does not determine.
 ## SignatureScheme Values
 
 This document adds the following values to the TLS SignatureScheme namespace
-defined in Section 4.2.3 of {{RFC8446}}, for use in the
+defined in Section 4.3.3 of {{RFC9846}}, for use in the
 "signature_algorithms" and "signature_algorithms_cert" extensions.
 
 ~~~
@@ -159,13 +159,13 @@ its pre-hash are fixed by the negotiated scheme and are specified in
 parameterises them.
 
 When a scheme defined in this document is negotiated, the CertificateVerify
-signature is computed over the signing input of Section 4.4.3 of {{RFC8446}}
+signature is computed over the signing input of Section 4.5.2 of {{RFC9846}}
 using Composite-ML-DSA.Sign, and verified using Composite-ML-DSA.Verify
 (Sections 3.2 and 3.3 of {{I-D.ietf-lamps-pq-composite-sigs}}).
 
 The context (ctx) parameter MUST be the empty string. Note that the context
 parameter of {{I-D.ietf-lamps-pq-composite-sigs}} is different from the context
-string of Section 4.4.3 of {{RFC8446}}.
+string of Section 4.5.2 of {{RFC9846}}.
 
 
 ## Restrictions
@@ -174,7 +174,7 @@ TLS 1.3 does not use RSASSA-PKCS1-v1_5 {{RFC8017}} in CertificateVerify.
 Accordingly, mldsa44_rsa2048_pkcs15_sha256, mldsa65_rsa3072_pkcs15_sha512, and
 mldsa65_rsa4096_pkcs15_sha512 MUST NOT appear in the "signature_algorithms"
 extension; they are defined only for the "signature_algorithms_cert" extension
-and for signatures in certificates (Section 4.4.2.2 of {{RFC8446}}). An
+and for signatures in certificates (Section 4.3.3 of {{RFC9846}}). An
 endpoint that receives a CertificateVerify message using one of these three
 schemes MUST abort with an illegal_parameter alert.
 
