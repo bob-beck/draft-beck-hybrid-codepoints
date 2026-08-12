@@ -1,0 +1,359 @@
+
+
+
+
+TLS                                                              B. Beck
+Internet-Draft                                                   OpenSSL
+Intended status: Standards Track                          12 August 2026
+Expires: 13 February 2027
+
+
+     TLS 1.3 Code Points for Composite ML-DSA Signature Algorithms
+                draft-beck-tls-hybrid-codepoints-latest
+
+Abstract
+
+   This document allocates TLS SignatureScheme code points for the
+   Composite ML-DSA signature algorithms defined for X.509 in
+   [I-D.ietf-lamps-pq-composite-sigs], and specifies the parameters an
+   implementation needs in order to use them interoperably in TLS 1.3.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at https://bob-
+   beck.github.io/draft-beck-hybrid-codepoints/draft-beck-tls-hybrid-
+   codepoints.html.  Status information for this document may be found
+   at https://datatracker.ietf.org/doc/draft-beck-tls-hybrid-
+   codepoints/.
+
+   Discussion of this document takes place on the TLS Working Group
+   mailing list (mailto:tls@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/tls/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/tls/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/bob-beck/draft-beck-hybrid-codepoints.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 13 February 2027.
+
+Copyright Notice
+
+   Copyright (c) 2026 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Composite ML-DSA in TLS 1.3
+     3.1.  SignatureScheme Values
+     3.2.  Signing and Verification
+     3.3.  Restrictions
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   [I-D.ietf-lamps-pq-composite-sigs] defines eighteen Composite ML-DSA
+   signature algorithms, each pairing ML-DSA [FIPS204] with a
+   traditional signature algorithm, and allocates an object identifier
+   for each so that they can be used in X.509 certificates.
+
+   TLS 1.3 [RFC8446] negotiates signature algorithms using values from
+   the TLS SignatureScheme registry.  No such values exist for Composite
+   ML-DSA, so these algorithms cannot be negotiated in TLS even where
+   certificates using them are available.
+
+   This document allocates one code point for each Composite ML-DSA
+   algorithm defined in [I-D.ietf-lamps-pq-composite-sigs], and
+   specifies the parameters that the code point alone does not
+   determine.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   "Composite ML-DSA" refers to the signature scheme of
+   [I-D.ietf-lamps-pq-composite-sigs].
+
+3.  Composite ML-DSA in TLS 1.3
+
+3.1.  SignatureScheme Values
+
+   This document adds the following values to the TLS SignatureScheme
+   namespace defined in Section 4.2.3 of [RFC8446], for use in the
+   "signature_algorithms" and "signature_algorithms_cert" extensions.
+
+   enum {
+       mldsa44_rsa2048_pss_sha256                (TBD1),
+       mldsa44_rsa2048_pkcs15_sha256             (TBD2),
+       mldsa44_ed25519_sha512                    (TBD3),
+       mldsa44_ecdsa_secp256r1_sha256            (TBD4),
+       mldsa65_rsa3072_pss_sha512                (TBD5),
+       mldsa65_rsa3072_pkcs15_sha512             (TBD6),
+       mldsa65_rsa4096_pss_sha512                (TBD7),
+       mldsa65_rsa4096_pkcs15_sha512             (TBD8),
+       mldsa65_ecdsa_secp256r1_sha512            (TBD9),
+       mldsa65_ecdsa_secp384r1_sha512            (TBD10),
+       mldsa65_ecdsa_brainpoolP256r1tls13_sha512 (TBD11),
+       mldsa65_ed25519_sha512                    (TBD12),
+       mldsa87_ecdsa_secp384r1_sha512            (TBD13),
+       mldsa87_ecdsa_brainpoolP384r1tls13_sha512 (TBD14),
+       mldsa87_ed448_shake256                    (TBD15),
+       mldsa87_rsa3072_pss_sha512                (TBD16),
+       mldsa87_rsa4096_pss_sha512                (TBD17),
+       mldsa87_ecdsa_secp521r1_sha512            (TBD18)
+   } SignatureScheme;
+
+   Each value corresponds to exactly one algorithm of
+   [I-D.ietf-lamps-pq-composite-sigs], identified in Table 1 by the
+   object identifier that appears in the SubjectPublicKeyInfo of a
+   certificate carrying a key for that algorithm.  The names are
+   transliterations of the corresponding Composite ML-DSA algorithm
+   names, using the curve names of the TLS NamedGroup registry where
+   these differ from those used in [I-D.ietf-lamps-pq-composite-sigs];
+   the brainpool curve names follow [RFC8734].  Names carry no TLS-level
+   processing semantics.
+
+   +===========================================+======================+
+   | Description                               | Algorithm Identifier |
+   +===========================================+======================+
+   | mldsa44_rsa2048_pss_sha256                | 1.3.6.1.5.5.7.6.37   |
+   +-------------------------------------------+----------------------+
+   | mldsa44_rsa2048_pkcs15_sha256             | 1.3.6.1.5.5.7.6.38   |
+   +-------------------------------------------+----------------------+
+   | mldsa44_ed25519_sha512                    | 1.3.6.1.5.5.7.6.39   |
+   +-------------------------------------------+----------------------+
+   | mldsa44_ecdsa_secp256r1_sha256            | 1.3.6.1.5.5.7.6.40   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_rsa3072_pss_sha512                | 1.3.6.1.5.5.7.6.41   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_rsa3072_pkcs15_sha512             | 1.3.6.1.5.5.7.6.42   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_rsa4096_pss_sha512                | 1.3.6.1.5.5.7.6.43   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_rsa4096_pkcs15_sha512             | 1.3.6.1.5.5.7.6.44   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_ecdsa_secp256r1_sha512            | 1.3.6.1.5.5.7.6.45   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_ecdsa_secp384r1_sha512            | 1.3.6.1.5.5.7.6.46   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_ecdsa_brainpoolP256r1tls13_sha512 | 1.3.6.1.5.5.7.6.47   |
+   +-------------------------------------------+----------------------+
+   | mldsa65_ed25519_sha512                    | 1.3.6.1.5.5.7.6.48   |
+   +-------------------------------------------+----------------------+
+   | mldsa87_ecdsa_secp384r1_sha512            | 1.3.6.1.5.5.7.6.49   |
+   +-------------------------------------------+----------------------+
+   | mldsa87_ecdsa_brainpoolP384r1tls13_sha512 | 1.3.6.1.5.5.7.6.50   |
+   +-------------------------------------------+----------------------+
+   | mldsa87_ed448_shake256                    | 1.3.6.1.5.5.7.6.51   |
+   +-------------------------------------------+----------------------+
+   | mldsa87_rsa3072_pss_sha512                | 1.3.6.1.5.5.7.6.52   |
+   +-------------------------------------------+----------------------+
+   | mldsa87_rsa4096_pss_sha512                | 1.3.6.1.5.5.7.6.53   |
+   +-------------------------------------------+----------------------+
+   | mldsa87_ecdsa_secp521r1_sha512            | 1.3.6.1.5.5.7.6.54   |
+   +-------------------------------------------+----------------------+
+
+             Table 1: Mapping to Composite ML-DSA Algorithms
+
+3.2.  Signing and Verification
+
+   TLS treats Composite ML-DSA as a single opaque signature algorithm,
+   as it does Ed25519 and Ed448.  The composite construction, its
+   component algorithms, and its pre-hash are fixed by the negotiated
+   scheme and are specified in [I-D.ietf-lamps-pq-composite-sigs].  The
+   TLS layer neither inspects nor parameterises them.
+
+   When a scheme defined in this document is negotiated, the
+   CertificateVerify signature is computed over the signing input of
+   Section 4.4.3 of [RFC8446] using Composite-ML-DSA.Sign, and verified
+   using Composite-ML-DSA.Verify (Sections 3.2 and 3.3 of
+   [I-D.ietf-lamps-pq-composite-sigs]).
+
+   The context (ctx) parameter MUST be the empty string.  Note that the
+   context parameter of [I-D.ietf-lamps-pq-composite-sigs] is different
+   from the context string of Section 4.4.3 of [RFC8446].
+
+3.3.  Restrictions
+
+   TLS 1.3 does not use RSASSA-PKCS1-v1_5 [RFC8017] in
+   CertificateVerify.  Accordingly, mldsa44_rsa2048_pkcs15_sha256,
+   mldsa65_rsa3072_pkcs15_sha512, and mldsa65_rsa4096_pkcs15_sha512 MUST
+   NOT appear in the "signature_algorithms" extension; they are defined
+   only for the "signature_algorithms_cert" extension and for signatures
+   in certificates (Section 4.4.2.2 of [RFC8446]).  An endpoint that
+   receives a CertificateVerify message using one of these three schemes
+   MUST abort with an illegal_parameter alert.
+
+   The schemes defined in this document MUST NOT be used with TLS 1.2
+   [RFC5246] or any earlier version.  An endpoint that receives a
+   ServerKeyExchange or CertificateVerify message using one of these
+   schemes in a TLS 1.2 connection MUST abort with an illegal_parameter
+   alert.
+
+   These schemes are equally applicable to DTLS 1.3 [RFC9147].
+
+4.  Security Considerations
+
+   The security considerations of [I-D.ietf-lamps-pq-composite-sigs]
+   apply.  TLS authentication requires existential unforgeability under
+   chosen-message attack; Section 9.2 of
+   [I-D.ietf-lamps-pq-composite-sigs] discusses the unforgeability
+   properties of Composite ML-DSA.
+
+5.  IANA Considerations
+
+   IANA is requested to add the following entries to the TLS
+   SignatureScheme registry, according to the procedures of Section 16
+   of [RFC9847].  The Reference for every entry is this document.
+
+    +=======+===========================================+=============+
+    | Value | Description                               | Recommended |
+    +=======+===========================================+=============+
+    | TBD1  | mldsa44_rsa2048_pss_sha256                | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD2  | mldsa44_rsa2048_pkcs15_sha256             | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD3  | mldsa44_ed25519_sha512                    | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD4  | mldsa44_ecdsa_secp256r1_sha256            | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD5  | mldsa65_rsa3072_pss_sha512                | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD6  | mldsa65_rsa3072_pkcs15_sha512             | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD7  | mldsa65_rsa4096_pss_sha512                | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD8  | mldsa65_rsa4096_pkcs15_sha512             | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD9  | mldsa65_ecdsa_secp256r1_sha512            | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD10 | mldsa65_ecdsa_secp384r1_sha512            | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD11 | mldsa65_ecdsa_brainpoolP256r1tls13_sha512 | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD12 | mldsa65_ed25519_sha512                    | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD13 | mldsa87_ecdsa_secp384r1_sha512            | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD14 | mldsa87_ecdsa_brainpoolP384r1tls13_sha512 | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD15 | mldsa87_ed448_shake256                    | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD16 | mldsa87_rsa3072_pss_sha512                | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD17 | mldsa87_rsa4096_pss_sha512                | N           |
+    +-------+-------------------------------------------+-------------+
+    | TBD18 | mldsa87_ecdsa_secp521r1_sha512            | N           |
+    +-------+-------------------------------------------+-------------+
+
+              Table 2: TLS SignatureScheme Registry Additions
+
+   IANA is requested to add a comment to the entries for
+   mldsa44_rsa2048_pkcs15_sha256, mldsa65_rsa3072_pkcs15_sha512, and
+   mldsa65_rsa4096_pkcs15_sha512 noting that they are defined for use
+   only with the "signature_algorithms_cert" extension.
+
+6.  References
+
+6.1.  Normative References
+
+   [I-D.ietf-lamps-pq-composite-sigs]
+              Ounsworth, M., Gray, J., Pala, M., Klaußner, J., and S.
+              Fluhrer, "Composite Module-Lattice-Based Digital Signature
+              Algorithm (ML-DSA) for use in X.509 Public Key
+              Infrastructure", Work in Progress, Internet-Draft, draft-
+              ietf-lamps-pq-composite-sigs-19, 21 April 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
+              pq-composite-sigs-19>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
+   [RFC9847]  Salowey, J. and S. Turner, "IANA Registry Updates for TLS
+              and DTLS", RFC 9847, DOI 10.17487/RFC9847, December 2025,
+              <https://www.rfc-editor.org/rfc/rfc9847>.
+
+6.2.  Informative References
+
+   [FIPS204]  National Institute of Standards and Technology (NIST),
+              "Module-Lattice-Based Digital Signature Standard",
+              FIPS 204, August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.204>.
+
+   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", RFC 5246,
+              DOI 10.17487/RFC5246, August 2008,
+              <https://www.rfc-editor.org/rfc/rfc5246>.
+
+   [RFC8017]  Moriarty, K., Ed., Kaliski, B., Jonsson, J., and A. Rusch,
+              "PKCS #1: RSA Cryptography Specifications Version 2.2",
+              RFC 8017, DOI 10.17487/RFC8017, November 2016,
+              <https://www.rfc-editor.org/rfc/rfc8017>.
+
+   [RFC8734]  Bruckert, L., Merkle, J., and M. Lochter, "Elliptic Curve
+              Cryptography (ECC) Brainpool Curves for Transport Layer
+              Security (TLS) Version 1.3", RFC 8734,
+              DOI 10.17487/RFC8734, February 2020,
+              <https://www.rfc-editor.org/rfc/rfc8734>.
+
+   [RFC9147]  Rescorla, E., Tschofenig, H., and N. Modadugu, "The
+              Datagram Transport Layer Security (DTLS) Protocol Version
+              1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
+              <https://www.rfc-editor.org/rfc/rfc9147>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   Bob Beck
+   OpenSSL
+   Email: beck@obtuse.com
