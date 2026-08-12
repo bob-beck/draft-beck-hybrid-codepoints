@@ -31,8 +31,6 @@ author:
     email: "beck@obtuse.com"
 
 normative:
-  RFC2119:
-  RFC8174:
   RFC8446:
   I-D.ietf-lamps-pq-composite-sigs:
   RFC9847:
