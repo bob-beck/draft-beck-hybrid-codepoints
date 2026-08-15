@@ -69,11 +69,8 @@ in X.509 certificates. Section 10.4 of that document short-lists six of them
 for implementation.
 
 TLS 1.3 {{RFC9846}} negotiates signature algorithms using values from the TLS
-SignatureScheme registry. No such values exist for Composite ML-DSA, so these
-algorithms cannot be negotiated in TLS even where certificates using them are
-available.
-
-This document allocates one code point for each of those six, and specifies the
+SignatureScheme registry, which has none for Composite ML-DSA. This document
+allocates one code point for each of those six algorithms, and specifies the
 parameters that the code point alone does not determine.
 
 
