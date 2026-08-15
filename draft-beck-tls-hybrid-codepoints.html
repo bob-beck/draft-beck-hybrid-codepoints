@@ -8,9 +8,9 @@
 <meta content="Bob Beck" name="author">
 <meta content="
        This document allocates TLS SignatureScheme code points for the Composite
-ML-DSA signature algorithms defined for X.509 in
- , and specifies the parameters an
-implementation needs in order to use them interoperably in TLS 1.3. 
+ML-DSA signature algorithms that  
+short-lists for implementation, and specifies the parameters an
+implementation needs to use them interoperably in TLS 1.3. 
     " name="description">
 <meta content="xml2rfc 3.34.0" name="generator">
 <meta content="composite" name="keyword">
@@ -1051,7 +1051,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beck</td>
-<td class="center">Expires 13 February 2027</td>
+<td class="center">Expires 16 February 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1064,12 @@ svg {
 <dd class="internet-draft">draft-beck-tls-hybrid-codepoints-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-12" class="published">12 August 2026</time>
+<time datetime="2026-08-15" class="published">15 August 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-13">13 February 2027</time></dd>
+<dd class="expires"><time datetime="2027-02-16">16 February 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,9 +1083,9 @@ svg {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document allocates TLS SignatureScheme code points for the Composite
-ML-DSA signature algorithms defined for X.509 in
-<span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>, and specifies the parameters an
-implementation needs in order to use them interoperably in TLS 1.3.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+ML-DSA signature algorithms that <span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>
+short-lists for implementation, and specifies the parameters an
+implementation needs to use them interoperably in TLS 1.3.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1122,7 +1122,7 @@ implementation needs in order to use them interoperably in TLS 1.3.<a href="#sec
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1203,17 +1203,17 @@ implementation needs in order to use them interoperably in TLS 1.3.<a href="#sec
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1"><span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span> defines eighteen Composite ML-DSA
-signature algorithms, each pairing ML-DSA <span>[<a href="#FIPS204" class="cite xref">FIPS204</a>]</span> with a traditional
-signature algorithm, and allocates an object identifier for each so that they
-can be used in X.509 certificates.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1"><span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span> defines Composite ML-DSA signature
+algorithms, each pairing ML-DSA <span>[<a href="#FIPS204" class="cite xref">FIPS204</a>]</span> with a traditional signature
+algorithm, and allocates an object identifier for each so that they can be used
+in X.509 certificates. Section 10.4 of that document short-lists six of them
+for implementation.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">TLS 1.3 <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span> negotiates signature algorithms using values from the TLS
 SignatureScheme registry. No such values exist for Composite ML-DSA, so these
 algorithms cannot be negotiated in TLS even where certificates using them are
 available.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">This document allocates one code point for each Composite ML-DSA algorithm
-defined in <span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>, and specifies the parameters
-that the code point alone does not determine.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document allocates one code point for each of those six, and specifies the
+parameters that the code point alone does not determine.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1245,35 +1245,21 @@ defined in Section 4.3.3 of <span>[<a href="#RFC9846" class="cite xref">RFC9846<
 <div class="alignLeft art-text artwork" id="section-3.1-2">
 <pre>
 enum {
-    mldsa44_rsa2048_pss_sha256                (TBD1),
-    mldsa44_rsa2048_pkcs15_sha256             (TBD2),
-    mldsa44_ed25519_sha512                    (TBD3),
-    mldsa44_ecdsa_secp256r1_sha256            (TBD4),
-    mldsa65_rsa3072_pss_sha512                (TBD5),
-    mldsa65_rsa3072_pkcs15_sha512             (TBD6),
-    mldsa65_rsa4096_pss_sha512                (TBD7),
-    mldsa65_rsa4096_pkcs15_sha512             (TBD8),
-    mldsa65_ecdsa_secp256r1_sha512            (TBD9),
-    mldsa65_ecdsa_secp384r1_sha512            (TBD10),
-    mldsa65_ecdsa_brainpoolP256r1tls13_sha512 (TBD11),
-    mldsa65_ed25519_sha512                    (TBD12),
-    mldsa87_ecdsa_secp384r1_sha512            (TBD13),
-    mldsa87_ecdsa_brainpoolP384r1tls13_sha512 (TBD14),
-    mldsa87_ed448_shake256                    (TBD15),
-    mldsa87_rsa3072_pss_sha512                (TBD16),
-    mldsa87_rsa4096_pss_sha512                (TBD17),
-    mldsa87_ecdsa_secp521r1_sha512            (TBD18)
+    mldsa44_ed25519_sha512          (TBD1),
+    mldsa44_ecdsa_secp256r1_sha256  (TBD2),
+    mldsa65_rsa3072_pss_sha512      (TBD3),
+    mldsa65_ecdsa_secp256r1_sha512  (TBD4),
+    mldsa65_ed25519_sha512          (TBD5),
+    mldsa87_ecdsa_secp384r1_sha512  (TBD6)
 } SignatureScheme;
 </pre><a href="#section-3.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-3.1-3">Each value corresponds to exactly one algorithm of
-<span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>, identified in <a href="#mapping" class="auto internal xref">Table 1</a> by the object
+<span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>. <a href="#mapping" class="auto internal xref">Table 1</a> identifies each by the object
 identifier that appears in the SubjectPublicKeyInfo of a certificate carrying a
-key for that algorithm. The names are transliterations of the corresponding
-Composite ML-DSA algorithm names, using the curve names of the TLS NamedGroup
-registry where these differ from those used in
-<span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>; the brainpool curve names follow
-<span>[<a href="#RFC8734" class="cite xref">RFC8734</a>]</span>. Names carry no TLS-level processing semantics.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+key for that algorithm. The names transliterate the Composite ML-DSA algorithm
+names, using the curve names of the TLS NamedGroup registry where these differ.
+Names carry no TLS-level processing semantics.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <span id="name-mapping-to-composite-ml-dsa"></span><div id="mapping">
 <table class="center" id="table-1">
           <caption>
@@ -1288,14 +1274,6 @@ registry where these differ from those used in
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa44_rsa2048_pss_sha256</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.37</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa44_rsa2048_pkcs15_sha256</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.38</td>
-            </tr>
-            <tr>
               <td class="text-left" rowspan="1" colspan="1">mldsa44_ed25519_sha512</td>
               <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.39</td>
             </tr>
@@ -1308,28 +1286,8 @@ registry where these differ from those used in
               <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.41</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa65_rsa3072_pkcs15_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.42</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa65_rsa4096_pss_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.43</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa65_rsa4096_pkcs15_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.44</td>
-            </tr>
-            <tr>
               <td class="text-left" rowspan="1" colspan="1">mldsa65_ecdsa_secp256r1_sha512</td>
               <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.45</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa65_ecdsa_secp384r1_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.46</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa65_ecdsa_brainpoolP256r1tls13_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.47</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">mldsa65_ed25519_sha512</td>
@@ -1338,26 +1296,6 @@ registry where these differ from those used in
             <tr>
               <td class="text-left" rowspan="1" colspan="1">mldsa87_ecdsa_secp384r1_sha512</td>
               <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.49</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa87_ecdsa_brainpoolP384r1tls13_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.50</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa87_ed448_shake256</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.51</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa87_rsa3072_pss_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.52</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa87_rsa4096_pss_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.53</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">mldsa87_ecdsa_secp521r1_sha512</td>
-              <td class="text-left" rowspan="1" colspan="1">1.3.6.1.5.5.7.6.54</td>
             </tr>
           </tbody>
         </table>
@@ -1370,17 +1308,16 @@ registry where these differ from those used in
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-signing-and-verification" class="section-name selfRef">Signing and Verification</a>
         </h3>
 <p id="section-3.2-1">TLS treats Composite ML-DSA as a single opaque signature algorithm, as it does
-Ed25519 and Ed448. The composite construction, its component algorithms, and
-its pre-hash are fixed by the negotiated scheme and are specified in
-<span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>. The TLS layer neither inspects nor
-parameterises them.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+Ed25519. The composite construction, its component algorithms, and its pre-hash
+are fixed by the negotiated scheme and specified in
+<span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">When a scheme defined in this document is negotiated, the CertificateVerify
 signature is computed over the signing input of Section 4.5.2 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
 using Composite-ML-DSA.Sign, and verified using Composite-ML-DSA.Verify
 (Sections 3.2 and 3.3 of <span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span>).<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">The context (ctx) parameter <span class="bcp14">MUST</span> be the empty string. Note that the context
-parameter of <span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span> is different from the context
-string of Section 4.5.2 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">The context (ctx) parameter <span class="bcp14">MUST</span> be the empty string. The ctx parameter of
+<span>[<a href="#I-D.ietf-lamps-pq-composite-sigs" class="cite xref">I-D.ietf-lamps-pq-composite-sigs</a>]</span> is not the context string of Section 4.5.2
+of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="restrictions">
@@ -1388,19 +1325,9 @@ string of Section 4.5.2 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</
         <h3 id="name-restrictions">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-restrictions" class="section-name selfRef">Restrictions</a>
         </h3>
-<p id="section-3.3-1">RSASSA-PKCS1-v1_5 <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> is not defined for use in signed TLS handshake
-messages (Section 4.3.3 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>). Accordingly,
-mldsa44_rsa2048_pkcs15_sha256, mldsa65_rsa3072_pkcs15_sha512, and
-mldsa65_rsa4096_pkcs15_sha512 <span class="bcp14">MUST NOT</span> appear in the "signature_algorithms"
-extension; they are defined only for the "signature_algorithms_cert" extension
-and for signatures in certificates (Section 4.5.1.2 of <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>). An
-endpoint that receives a CertificateVerify message using one of these three
-schemes <span class="bcp14">MUST</span> abort with an illegal_parameter alert.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3-2">The schemes defined in this document <span class="bcp14">MUST NOT</span> be used with TLS 1.2 <span>[<a href="#RFC5246" class="cite xref">RFC5246</a>]</span>
-or any earlier version. An endpoint that receives a ServerKeyExchange or
-CertificateVerify message using one of these schemes in a TLS 1.2 connection
-<span class="bcp14">MUST</span> abort with an illegal_parameter alert.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.3-3">These schemes are equally applicable to DTLS 1.3 <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">The schemes defined in this document <span class="bcp14">MUST NOT</span> be used with TLS 1.2 <span>[<a href="#RFC5246" class="cite xref">RFC5246</a>]</span>
+or any earlier version.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">These schemes apply equally to DTLS 1.3 <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1440,101 +1367,37 @@ Reference for every entry is this document.<a href="#section-5-1" class="pilcrow
         <tbody>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">TBD1</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa44_rsa2048_pss_sha256</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD2</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa44_rsa2048_pkcs15_sha256</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD3</td>
             <td class="text-left" rowspan="1" colspan="1">mldsa44_ed25519_sha512</td>
             <td class="text-left" rowspan="1" colspan="1">N</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD4</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD2</td>
             <td class="text-left" rowspan="1" colspan="1">mldsa44_ecdsa_secp256r1_sha256</td>
             <td class="text-left" rowspan="1" colspan="1">N</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD5</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD3</td>
             <td class="text-left" rowspan="1" colspan="1">mldsa65_rsa3072_pss_sha512</td>
             <td class="text-left" rowspan="1" colspan="1">N</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD6</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa65_rsa3072_pkcs15_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD7</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa65_rsa4096_pss_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD8</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa65_rsa4096_pkcs15_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD9</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD4</td>
             <td class="text-left" rowspan="1" colspan="1">mldsa65_ecdsa_secp256r1_sha512</td>
             <td class="text-left" rowspan="1" colspan="1">N</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD10</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa65_ecdsa_secp384r1_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD11</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa65_ecdsa_brainpoolP256r1tls13_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD12</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD5</td>
             <td class="text-left" rowspan="1" colspan="1">mldsa65_ed25519_sha512</td>
             <td class="text-left" rowspan="1" colspan="1">N</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD13</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD6</td>
             <td class="text-left" rowspan="1" colspan="1">mldsa87_ecdsa_secp384r1_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD14</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa87_ecdsa_brainpoolP384r1tls13_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD15</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa87_ed448_shake256</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD16</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa87_rsa3072_pss_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD17</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa87_rsa4096_pss_sha512</td>
-            <td class="text-left" rowspan="1" colspan="1">N</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD18</td>
-            <td class="text-left" rowspan="1" colspan="1">mldsa87_ecdsa_secp521r1_sha512</td>
             <td class="text-left" rowspan="1" colspan="1">N</td>
           </tr>
         </tbody>
       </table>
 </div>
-<p id="section-5-3">IANA is requested to add a comment to the entries for
-mldsa44_rsa2048_pkcs15_sha256, mldsa65_rsa3072_pkcs15_sha512, and
-mldsa65_rsa4096_pkcs15_sha512 noting that they are defined for use only with
-the "signature_algorithms_cert" extension.<a href="#section-5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -1584,14 +1447,6 @@ the "signature_algorithms_cert" extension.<a href="#section-5-3" class="pilcrow"
 <dt id="RFC5246">[RFC5246]</dt>
         <dd>
 <span class="refAuthor">Dierks, T.</span> and <span class="refAuthor">E. Rescorla</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.2"</span>, <span class="seriesInfo">RFC 5246</span>, <span class="seriesInfo">DOI 10.17487/RFC5246</span>, <time datetime="2008-08" class="refDate">August 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5246">https://www.rfc-editor.org/rfc/rfc5246</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8017">[RFC8017]</dt>
-        <dd>
-<span class="refAuthor">Moriarty, K., Ed.</span>, <span class="refAuthor">Kaliski, B.</span>, <span class="refAuthor">Jonsson, J.</span>, and <span class="refAuthor">A. Rusch</span>, <span class="refTitle">"PKCS #1: RSA Cryptography Specifications Version 2.2"</span>, <span class="seriesInfo">RFC 8017</span>, <span class="seriesInfo">DOI 10.17487/RFC8017</span>, <time datetime="2016-11" class="refDate">November 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8017">https://www.rfc-editor.org/rfc/rfc8017</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8734">[RFC8734]</dt>
-        <dd>
-<span class="refAuthor">Bruckert, L.</span>, <span class="refAuthor">Merkle, J.</span>, and <span class="refAuthor">M. Lochter</span>, <span class="refTitle">"Elliptic Curve Cryptography (ECC) Brainpool Curves for Transport Layer Security (TLS) Version 1.3"</span>, <span class="seriesInfo">RFC 8734</span>, <span class="seriesInfo">DOI 10.17487/RFC8734</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8734">https://www.rfc-editor.org/rfc/rfc8734</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9147">[RFC9147]</dt>
       <dd>
