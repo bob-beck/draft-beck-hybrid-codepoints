@@ -4,8 +4,9 @@
 
 Transport Layer Security                                         B. Beck
 Internet-Draft                                                   OpenSSL
-Intended status: Standards Track                          15 August 2026
-Expires: 16 February 2027
+Intended status: Standards Track                              D. O'Brien
+Expires: 27 March 2027                                        Apple Inc.
+                                                       23 September 2026
 
 
      TLS 1.3 Code Points for Composite ML-DSA Signature Algorithms
@@ -52,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 February 2027.
+   This Internet-Draft will expire on 27 March 2027.
 
 Copyright Notice
 
@@ -82,7 +83,7 @@ Table of Contents
      6.1.  Normative References
      6.2.  Informative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -172,7 +173,12 @@ Table of Contents
 3.3.  Restrictions
 
    The schemes defined in this document MUST NOT be used with TLS 1.2
-   [RFC5246] or any earlier version.
+   [RFC5246] or any earlier version.  An endpoint that receives one of
+   these schemes in the ServerKeyExchange or CertificateVerify message
+   of a connection that negotiated TLS 1.2 or earlier MUST abort the
+   handshake with an "illegal_parameter" alert.  Offering them in a
+   "signature_algorithms" extension is not an error; a TLS 1.2 peer
+   ignores values it does not recognize.
 
    These schemes apply equally to DTLS 1.3 [RFC9147].
 
@@ -259,8 +265,13 @@ Acknowledgments
 
    TODO acknowledge.
 
-Author's Address
+Authors' Addresses
 
    Bob Beck
    OpenSSL
    Email: beck@obtuse.com
+
+
+   Devon O'Brien
+   Apple Inc.
+   Email: asymmetric@apple.com
