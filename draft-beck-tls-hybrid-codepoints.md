@@ -29,6 +29,11 @@ author:
     fullname: "Bob Beck"
     organization: "OpenSSL"
     email: "beck@obtuse.com"
+ -
+    ins: "D. O'Brien"
+    fullname: "Devon O'Brien"
+    organization: "Apple Inc."
+    email: "asymmetric@apple.com"
 
 normative:
   RFC9846:
@@ -139,7 +144,11 @@ of {{RFC9846}}.
 ## Restrictions
 
 The schemes defined in this document MUST NOT be used with TLS 1.2 {{RFC5246}}
-or any earlier version.
+or any earlier version. An endpoint that receives one of these schemes in the
+ServerKeyExchange or CertificateVerify message of a connection that negotiated
+TLS 1.2 or earlier MUST abort the handshake with an "illegal_parameter" alert.
+Offering them in a "signature_algorithms" extension is not an error; a TLS 1.2
+peer ignores values it does not recognize.
 
 These schemes apply equally to DTLS 1.3 {{RFC9147}}.
 
