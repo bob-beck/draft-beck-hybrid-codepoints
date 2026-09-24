@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-22T03:27:04.461155+00:00",
+  "timestamp": "2026-09-24T03:17:48.508226+00:00",
   "repo": "bob-beck/draft-beck-hybrid-codepoints",
   "labels": [
     {
@@ -49,6 +49,66 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOT1xkcM8AAAABSz7i5g",
+      "title": "Save presentation slides for TLS working group, in case needed.",
+      "url": "https://github.com/bob-beck/draft-beck-hybrid-codepoints/issues/2",
+      "state": "OPEN",
+      "author": "bob-beck",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "One slide should do.\n\n<img width=\"500\" height=\"729\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/1faee1e2-b3d8-4c2a-82c7-baf6557fbafa\" />",
+      "createdAt": "2026-09-23T17:57:42Z",
+      "updatedAt": "2026-09-23T17:57:42Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOT1xkcM8AAAABErPCig",
+      "title": "Add co-author and specify the TLS 1.2 behavior",
+      "url": "https://github.com/bob-beck/draft-beck-hybrid-codepoints/pull/1",
+      "state": "MERGED",
+      "author": "devonobrien",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Add Devon O'Brien as co-author\r\n- Regenerate .github/CODEOWNERS for the new author email\r\n- Clarify TLS 1.2 behavior",
+      "createdAt": "2026-09-23T01:43:45Z",
+      "updatedAt": "2026-09-23T15:50:06Z",
+      "baseRepository": "bob-beck/draft-beck-hybrid-codepoints",
+      "baseRefName": "main",
+      "baseRefOid": "b3e42fb78b416e283b5df4162cc88dea72857329",
+      "headRepository": "devonobrien/draft-beck-hybrid-codepoints",
+      "headRefName": "tls12-illegal-parameter-and-coauthor",
+      "headRefOid": "adcf740d66d210c0c377815b3baa38ed0536a0f5",
+      "closedAt": "2026-09-23T15:50:06Z",
+      "mergedAt": "2026-09-23T15:50:06Z",
+      "mergedBy": "bob-beck",
+      "mergeCommit": {
+        "oid": "c5b6abffafd03ffde334518c0c409b348c869ed0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOT1xkcM8AAAABO4Gf3Q",
+          "commit": {
+            "abbreviatedOid": "adcf740"
+          },
+          "author": "bob-beck",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-09-23T15:49:58Z",
+          "updatedAt": "2026-09-23T15:49:58Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
 }
