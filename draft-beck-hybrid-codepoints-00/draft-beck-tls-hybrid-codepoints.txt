@@ -1,0 +1,274 @@
+
+
+
+
+Transport Layer Security                                         B. Beck
+Internet-Draft                                                   OpenSSL
+Intended status: Standards Track                              D. O'Brien
+Expires: 23 May 2027                                                    
+                                                              C. A. Wood
+                                                              Cloudflare
+                                                        19 November 2026
+
+
+     TLS 1.3 Code Points for Composite ML-DSA Signature Algorithms
+                draft-beck-tls-hybrid-codepoints-latest
+
+Abstract
+
+   This document allocates TLS SignatureScheme code points for the
+   Composite ML-DSA signature algorithms that [RFC10073] short-lists for
+   implementation, and specifies the parameters an implementation needs
+   to use them interoperably in TLS 1.3.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at https://bob-
+   beck.github.io/draft-beck-hybrid-codepoints/draft-beck-tls-hybrid-
+   codepoints.html.  Status information for this document may be found
+   at https://datatracker.ietf.org/doc/draft-beck-tls-hybrid-
+   codepoints/.
+
+   Discussion of this document takes place on the Transport Layer
+   Security Working Group mailing list (mailto:tls@ietf.org), which is
+   archived at https://mailarchive.ietf.org/arch/browse/tls/.  Subscribe
+   at https://www.ietf.org/mailman/listinfo/tls/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/bob-beck/draft-beck-hybrid-codepoints.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 23 May 2027.
+
+Copyright Notice
+
+   Copyright (c) 2026 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Composite ML-DSA in TLS 1.3
+     3.1.  SignatureScheme Values
+     3.2.  Signing and Verification
+     3.3.  Restrictions
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   [RFC10073] defines Composite ML-DSA signature algorithms, each
+   pairing ML-DSA [FIPS204] with a traditional signature algorithm, and
+   allocates an object identifier for each so that they can be used in
+   X.509 certificates.  Section 10.4 of that document short-lists six of
+   them for implementation.
+
+   TLS 1.3 [RFC9846] negotiates signature algorithms using values from
+   the TLS SignatureScheme registry, which has none for Composite ML-
+   DSA.  This document allocates one code point for each of those six
+   algorithms, and specifies the parameters that the code point alone
+   does not determine.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   "Composite ML-DSA" refers to the signature scheme of [RFC10073].
+
+3.  Composite ML-DSA in TLS 1.3
+
+3.1.  SignatureScheme Values
+
+   This document adds the following values to the TLS SignatureScheme
+   namespace defined in Section 4.3.3 of [RFC9846], for use in the
+   "signature_algorithms" and "signature_algorithms_cert" extensions.
+
+   enum {
+       mldsa44_ed25519_sha512          (TBD1),
+       mldsa44_ecdsa_secp256r1_sha256  (TBD2),
+       mldsa65_rsa3072_pss_sha512      (TBD3),
+       mldsa65_ecdsa_secp256r1_sha512  (TBD4),
+       mldsa65_ed25519_sha512          (TBD5),
+       mldsa87_ecdsa_secp384r1_sha512  (TBD6)
+   } SignatureScheme;
+
+   Each value corresponds to exactly one algorithm of [RFC10073].
+   Table 1 identifies each by the object identifier that appears in the
+   SubjectPublicKeyInfo of a certificate carrying a key for that
+   algorithm.  The names transliterate the Composite ML-DSA algorithm
+   names, using the curve names of the TLS NamedGroup registry where
+   these differ.  Names carry no TLS-level processing semantics.
+
+         +================================+======================+
+         | Description                    | Algorithm Identifier |
+         +================================+======================+
+         | mldsa44_ed25519_sha512         | 1.3.6.1.5.5.7.6.39   |
+         +--------------------------------+----------------------+
+         | mldsa44_ecdsa_secp256r1_sha256 | 1.3.6.1.5.5.7.6.40   |
+         +--------------------------------+----------------------+
+         | mldsa65_rsa3072_pss_sha512     | 1.3.6.1.5.5.7.6.41   |
+         +--------------------------------+----------------------+
+         | mldsa65_ecdsa_secp256r1_sha512 | 1.3.6.1.5.5.7.6.45   |
+         +--------------------------------+----------------------+
+         | mldsa65_ed25519_sha512         | 1.3.6.1.5.5.7.6.48   |
+         +--------------------------------+----------------------+
+         | mldsa87_ecdsa_secp384r1_sha512 | 1.3.6.1.5.5.7.6.49   |
+         +--------------------------------+----------------------+
+
+              Table 1: Mapping to Composite ML-DSA Algorithms
+
+3.2.  Signing and Verification
+
+   TLS treats Composite ML-DSA as a single opaque signature algorithm,
+   as it does Ed25519.  The composite construction, its component
+   algorithms, and its pre-hash are fixed by the negotiated scheme and
+   specified in [RFC10073].
+
+   When a scheme defined in this document is negotiated, the
+   CertificateVerify signature is computed over the signing input of
+   Section 4.5.2 of [RFC9846] using Composite-ML-DSA.Sign, and verified
+   using Composite-ML-DSA.Verify (Sections 3.2 and 3.3 of [RFC10073]).
+
+   The context (ctx) parameter MUST be the empty string.  The ctx
+   parameter of [RFC10073] is not the context string of Section 4.5.2 of
+   [RFC9846].
+
+3.3.  Restrictions
+
+   The schemes defined in this document MUST NOT be used with TLS 1.2
+   [RFC5246] or any earlier version.  An endpoint that receives one of
+   these schemes in the ServerKeyExchange or CertificateVerify message
+   of a connection that negotiated TLS 1.2 or earlier MUST abort the
+   handshake with an "illegal_parameter" alert.  Offering them in a
+   "signature_algorithms" extension is not an error; a TLS 1.2 peer
+   ignores values it does not recognize.
+
+   These schemes apply equally to DTLS 1.3 [RFC9147].
+
+4.  Security Considerations
+
+   The security considerations of [RFC10073] apply.  TLS authentication
+   requires existential unforgeability under chosen-message attack;
+   Section 9.2 of [RFC10073] discusses the unforgeability properties of
+   Composite ML-DSA.
+
+5.  IANA Considerations
+
+   IANA is requested to add the following entries to the TLS
+   SignatureScheme registry, according to the procedures of Section 16
+   of [RFC9847].  The Reference for every entry is this document.
+
+         +=======+================================+=============+
+         | Value | Description                    | Recommended |
+         +=======+================================+=============+
+         | TBD1  | mldsa44_ed25519_sha512         | N           |
+         +-------+--------------------------------+-------------+
+         | TBD2  | mldsa44_ecdsa_secp256r1_sha256 | N           |
+         +-------+--------------------------------+-------------+
+         | TBD3  | mldsa65_rsa3072_pss_sha512     | N           |
+         +-------+--------------------------------+-------------+
+         | TBD4  | mldsa65_ecdsa_secp256r1_sha512 | N           |
+         +-------+--------------------------------+-------------+
+         | TBD5  | mldsa65_ed25519_sha512         | N           |
+         +-------+--------------------------------+-------------+
+         | TBD6  | mldsa87_ecdsa_secp384r1_sha512 | N           |
+         +-------+--------------------------------+-------------+
+
+             Table 2: TLS SignatureScheme Registry Additions
+
+6.  References
+
+6.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9846]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 9846, DOI 10.17487/RFC9846, July 2026,
+              <https://www.rfc-editor.org/rfc/rfc9846>.
+
+   [RFC9847]  Salowey, J. and S. Turner, "IANA Registry Updates for TLS
+              and DTLS", RFC 9847, DOI 10.17487/RFC9847, December 2025,
+              <https://www.rfc-editor.org/rfc/rfc9847>.
+
+   [RFC10073] Ounsworth, M., Gray, J., Pala, M., Klaußner, J., and S.
+              Fluhrer, "Composite Module-Lattice-Based Digital Signature
+              Algorithm (ML-DSA) for Use in X.509 Public Key
+              Infrastructure", RFC 10073, DOI 10.17487/RFC10073,
+              November 2026, <https://www.rfc-editor.org/rfc/rfc10073>.
+
+6.2.  Informative References
+
+   [FIPS204]  National Institute of Standards and Technology (NIST),
+              "Module-Lattice-Based Digital Signature Standard",
+              FIPS 204, August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.204>.
+
+   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", RFC 5246,
+              DOI 10.17487/RFC5246, August 2008,
+              <https://www.rfc-editor.org/rfc/rfc5246>.
+
+   [RFC9147]  Rescorla, E., Tschofenig, H., and N. Modadugu, "The
+              Datagram Transport Layer Security (DTLS) Protocol Version
+              1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
+              <https://www.rfc-editor.org/rfc/rfc9147>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Authors' Addresses
+
+   Bob Beck
+   OpenSSL
+   Email: beck@obtuse.com
+
+
+   Devon O'Brien
+
+
+   Christopher A. Wood
+   Cloudflare
+   Email: caw@heapingbits.net
