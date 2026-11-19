@@ -32,8 +32,11 @@ author:
  -
     ins: "D. O'Brien"
     fullname: "Devon O'Brien"
-    organization: "Apple Inc."
-    email: "asymmetric@apple.com"
+ -
+    ins: "C. A. Wood"
+    fullname: "Christopher A. Wood"
+    organization: "Cloudflare"
+    email: "caw@heapingbits.net"
 
 normative:
   RFC9846:
