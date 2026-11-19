@@ -15,7 +15,7 @@ keyword:
  - composite
  - ML-DSA
  - post-quantum
- - code point allocation
+ - code point allocations
 venue:
   group: "Transport Layer Security"
   type: "Working Group"
