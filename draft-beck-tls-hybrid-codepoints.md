@@ -40,7 +40,7 @@ author:
 
 normative:
   RFC9846:
-  I-D.ietf-lamps-pq-composite-sigs:
+  RFC10073:
   RFC9847:
 
 informative:
@@ -61,7 +61,7 @@ informative:
 --- abstract
 
 This document allocates TLS SignatureScheme code points for the Composite
-ML-DSA signature algorithms that {{I-D.ietf-lamps-pq-composite-sigs}}
+ML-DSA signature algorithms that {{RFC10073}}
 short-lists for implementation, and specifies the parameters an
 implementation needs to use them interoperably in TLS 1.3.
 
@@ -70,7 +70,7 @@ implementation needs to use them interoperably in TLS 1.3.
 
 # Introduction
 
-{{I-D.ietf-lamps-pq-composite-sigs}} defines Composite ML-DSA signature
+{{RFC10073}} defines Composite ML-DSA signature
 algorithms, each pairing ML-DSA {{FIPS204}} with a traditional signature
 algorithm, and allocates an object identifier for each so that they can be used
 in X.509 certificates. Section 10.4 of that document short-lists six of them
@@ -87,7 +87,7 @@ parameters that the code point alone does not determine.
 {::boilerplate bcp14-tagged}
 
 "Composite ML-DSA" refers to the signature scheme of
-{{I-D.ietf-lamps-pq-composite-sigs}}.
+{{RFC10073}}.
 
 
 # Composite ML-DSA in TLS 1.3
@@ -110,7 +110,7 @@ enum {
 ~~~
 
 Each value corresponds to exactly one algorithm of
-{{I-D.ietf-lamps-pq-composite-sigs}}. {{mapping}} identifies each by the object
+{{RFC10073}}. {{mapping}} identifies each by the object
 identifier that appears in the SubjectPublicKeyInfo of a certificate carrying a
 key for that algorithm. The names transliterate the Composite ML-DSA algorithm
 names, using the curve names of the TLS NamedGroup registry where these differ.
@@ -132,15 +132,15 @@ Names carry no TLS-level processing semantics.
 TLS treats Composite ML-DSA as a single opaque signature algorithm, as it does
 Ed25519. The composite construction, its component algorithms, and its pre-hash
 are fixed by the negotiated scheme and specified in
-{{I-D.ietf-lamps-pq-composite-sigs}}.
+{{RFC10073}}.
 
 When a scheme defined in this document is negotiated, the CertificateVerify
 signature is computed over the signing input of Section 4.5.2 of {{RFC9846}}
 using Composite-ML-DSA.Sign, and verified using Composite-ML-DSA.Verify
-(Sections 3.2 and 3.3 of {{I-D.ietf-lamps-pq-composite-sigs}}).
+(Sections 3.2 and 3.3 of {{RFC10073}}).
 
 The context (ctx) parameter MUST be the empty string. The ctx parameter of
-{{I-D.ietf-lamps-pq-composite-sigs}} is not the context string of Section 4.5.2
+{{RFC10073}} is not the context string of Section 4.5.2
 of {{RFC9846}}.
 
 
@@ -158,9 +158,9 @@ These schemes apply equally to DTLS 1.3 {{RFC9147}}.
 
 # Security Considerations
 
-The security considerations of {{I-D.ietf-lamps-pq-composite-sigs}} apply. TLS
+The security considerations of {{RFC10073}} apply. TLS
 authentication requires existential unforgeability under chosen-message attack;
-Section 9.2 of {{I-D.ietf-lamps-pq-composite-sigs}} discusses the
+Section 9.2 of {{RFC10073}} discusses the
 unforgeability properties of Composite ML-DSA.
 
 
