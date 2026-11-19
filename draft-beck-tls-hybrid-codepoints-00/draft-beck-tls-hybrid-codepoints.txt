@@ -5,7 +5,7 @@
 Transport Layer Security                                         B. Beck
 Internet-Draft                                                   OpenSSL
 Intended status: Standards Track                              D. O'Brien
-Expires: 23 May 2027                                                    
+Expires: 23 May 2027                                          Apple Inc.
                                                               C. A. Wood
                                                               Cloudflare
                                                         19 November 2026
@@ -267,6 +267,8 @@ Authors' Addresses
 
 
    Devon O'Brien
+   Apple Inc.
+   Email: asymmetric@apple.com
 
 
    Christopher A. Wood
